@@ -24,7 +24,7 @@ class Author(models.Model):
                 comment_raiting3 = self.user.comment_set.all().aggregate(sumraiting1 = Sum('comment_raiting'))
                 authors_post_comment_raiting += comment_raiting3.get('sumraiting1')
             
-        #users_comment_raiting = 0
+        #####users_comment_raiting = 0
         #users_comment_raiting += comment_raiting2.get('author_comment_raiting')
 
         #self.raiting = 3 * authors_post_raiting + authors_post_comment_raiting + users_comment_raiting
