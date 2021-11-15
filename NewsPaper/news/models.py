@@ -28,7 +28,7 @@ class Author(models.Model):
         #users_comment_rating += comment_rating2.get('author_comment_rating')
 
         #self.rating = 3 * authors_post_rating + authors_post_comment_rating + users_comment_rating
-        self.rating = authors_post_comment_rating
+        self.raiting = authors_post_comment_rating
         self.save()
 
 class Category(models.Model):
