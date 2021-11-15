@@ -37,4 +37,15 @@ post1.like()
 post1.like()
 post2.like()
 post3.dislike()
-c1 = Comment.objects.get(pk=5)
+c1 = Comment.objects.get(id=5)
+best_author = Author.objects.latest('raiting')
+best_author.id
+best_author.full_name   
+best_post = Author.objects.order_by('-post_raiting')[0]
+best_post.post_date_created
+best_post.post_raiting
+best_post.head_of_post
+best_post.preview()
+comment_of_the_best_post = best_post.comment_set.all()
+comment_of_the_best_post.values()
+

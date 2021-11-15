@@ -56,9 +56,6 @@ class Post(models.Model):
     def preview(self):
         review = self.article_text[:124]+'...'
         return review
-    
-    def __str__(self):
-        return self.id
 
 class PostCategory(models.Model):
 	post = models.ForeignKey(Post, on_delete = models.CASCADE)
