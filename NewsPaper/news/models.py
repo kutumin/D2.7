@@ -27,7 +27,8 @@ class Author(models.Model):
         users_comment_raiting = 0
         users_comment_raiting += comment_rairing2.get('author_comment_raiting')
 
-        self.raiting = 3 * authors_post_raiting + authors_post_comment_raiting + users_comment_raiting
+        #self.raiting = 3 * authors_post_raiting + authors_post_comment_raiting + users_comment_raiting
+        self.raiting = authors_post_comment_raiting
         self.save()
 
 class Category(models.Model):
