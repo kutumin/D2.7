@@ -35,5 +35,3 @@ post1.like()
 post1.like()
 post2.like()
 post3.dislike()
-
-test
