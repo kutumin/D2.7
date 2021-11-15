@@ -17,10 +17,13 @@ class Author(models.Model):
         authors_comment_raiting = authors_comment_raiting + comment_raiting.get('sumraiting1')
    
         authors_post_comment_raiting = 0
-
+        j=[]
+        m=0
         for i in self.post_set.all():
-                comment_raiting3 = self.user.comment_set.get(post=i).aggregate(sumraiting1 = Sum('comment_raiting'))
+                j.append(i)
+                comment_raiting3 = self.user.comment_set.filter(post=j[m]).aggregate(sumraiting1 = Sum('comment_raiting'))
                 authors_post_comment_raiting += comment_raiting3.get('sumraiting1')
+                m=m+1 
             
         self.raiting = 3 * authors_post_raiting + authors_post_comment_raiting + authors_comment_raiting
         self.save()
