@@ -5,30 +5,30 @@ from django.db.models import Sum
 class Author(models.Model):
     full_name = models.CharField(max_length = 255)
     user = models.OneToOneField(User,on_delete = models.CASCADE)
-    raiting = models.IntegerField(default = 1)
+    rating = models.IntegerField(default = 1)
 
     def update_rating(self):
-        post_raiting = self.post_set.all().aggregate(sumraiting = Sum('post_raiting'))
-        authors_post_raiting = 0
-        authors_post_raiting = authors_post_raiting + post_raiting.get('sumraiting')
+        post_rating = self.post_set.all().aggregate(sumrating = Sum('post_rating'))
+        authors_post_rating = 0
+        authors_post_rating = authors_post_rating + post_rating.get('sumrating')
 
-        comment_raiting = self.user.comment_set.all().aggregate(sumraiting1 = Sum('comment_raiting'))
-        authors_comment_raiting = 0
-        authors_comment_raiting = authors_comment_raiting + comment_raiting.get('sumraiting1')
+        comment_rating = self.user.comment_set.all().aggregate(sumrating1 = Sum('comment_rating'))
+        authors_comment_rating = 0
+        authors_comment_rating = authors_comment_rating + comment_rating.get('sumrating1')
 
-        #comment_rairing2 = self.user.comment_raiting_set.filter(post=self.post_set.all()).aggregate(sumraiting = Sum('author_comment_raiting'))
+        #comment_rating2 = self.user.comment_rating_set.filter(post=self.post_set.all()).aggregate(sumrating = Sum('author_comment_rating'))
         
-        authors_post_comment_raiting = 0
+        authors_post_comment_rating = 0
 
         for i in self.post_set.all():
-                comment_raiting3 = self.user.comment_set.all().aggregate(sumraiting1 = Sum('posts_comment_raiting'))
-                authors_post_comment_raiting += comment_raiting3.get('posts_comment_raiting')
+                comment_rating3 = self.user.comment_set.all().aggregate(sumrating1 = Sum('comment_rating'))
+                authors_post_comment_rating += comment_rating3.get('sumrating1')
             
-        users_comment_raiting = 0
-        users_comment_raiting += comment_rairing2.get('author_comment_raiting')
+        #users_comment_rating = 0
+        #users_comment_rating += comment_rating2.get('author_comment_rating')
 
-        #self.raiting = 3 * authors_post_raiting + authors_post_comment_raiting + users_comment_raiting
-        self.raiting = authors_post_comment_raiting
+        #self.rating = 3 * authors_post_rating + authors_post_comment_rating + users_comment_rating
+        self.rating = authors_post_comment_rating
         self.save()
 
 class Category(models.Model):
@@ -46,14 +46,14 @@ class Post(models.Model):
     category = models.ManyToManyField(Category, through = 'PostCategory')
     head_of_post = models.CharField(max_length = 255)
     article_text = models.TextField()
-    post_raiting = models.IntegerField(default = 1)
+    post_rating = models.IntegerField(default = 1)
 
     def like(self):
-        self.post_raiting += 1
+        self.post_rating += 1
         self.save()
 
     def dislike(self):
-        self.post_raiting -= 1
+        self.post_rating -= 1
         self.save()
 
     def preview(self):
@@ -69,12 +69,12 @@ class Comment(models.Model):
     comment_user = models.ForeignKey(User,on_delete = models.CASCADE)
     comment_text = models.TextField()
     comment_date_created = models.DateField(auto_now_add = True)
-    comment_raiting = models.IntegerField(default = 1) 
+    comment_rating = models.IntegerField(default = 1) 
     
     def like(self):
-        self.comment_raiting +=1
+        self.comment_rating +=1
         self.save()
     
     def dislike(self):
-        self.comment_raiting -=1
+        self.comment_rating -=1
         self.save()
