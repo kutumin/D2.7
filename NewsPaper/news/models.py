@@ -16,7 +16,7 @@ class Author(models.Model):
         authors_comment_raiting = 0
         authors_comment_raiting = authors_comment_raiting + comment_raiting.get('sumraiting1')
 
-        comment_rairing2 = self.user.comment_raiting_set.filter(post=self.post_set.all()).aggregate(sumraiting = Sum('author_comment_raiting'))
+        #comment_rairing2 = self.user.comment_raiting_set.filter(post=self.post_set.all()).aggregate(sumraiting = Sum('author_comment_raiting'))
         
         authors_post_comment_raiting = 0
 
