@@ -15,20 +15,14 @@ class Author(models.Model):
         comment_raiting = self.user.comment_set.all().aggregate(sumraiting1 = Sum('comment_raiting'))
         authors_comment_raiting = 0
         authors_comment_raiting = authors_comment_raiting + comment_raiting.get('sumraiting1')
-
-        #comment_raiting2 = self.user.comment_raiting_set.filter(post=self.post_set.all()).aggregate(sumraiting = Sum('author_comment_raiting'))
-        
+   
         authors_post_comment_raiting = 0
 
         for i in self.post_set.all():
                 comment_raiting3 = self.user.comment_set.all().aggregate(sumraiting1 = Sum('comment_raiting'))
                 authors_post_comment_raiting += comment_raiting3.get('sumraiting1')
             
-        #####users_comment_raiting = 0
-        #users_comment_raiting += comment_raiting2.get('author_comment_raiting')
-
-        #self.raiting = 3 * authors_post_raiting + authors_post_comment_raiting + users_comment_raiting
-        self.raiting = authors_post_comment_raiting
+        self.raiting = 3 * authors_post_raiting + authors_post_comment_raiting + authors_comment_raiting
         self.save()
 
 class Category(models.Model):
